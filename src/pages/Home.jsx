@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import FeatureSection from "../components/FeatureSection";
 import Footer from "../components/Footer";
-import UploadSection from "../components/upload/UploadSection";
+import ATSScanner from "../components/ats/ATSScanner";
 
 function Home() {
   return (
@@ -14,7 +14,7 @@ function Home() {
     buttonText="Upload Resume"
     buttonText2="Learn More"
     />
-      <UploadSection />
+      <ATSScanner />
       <FeatureSection />
       <Footer />
     </>

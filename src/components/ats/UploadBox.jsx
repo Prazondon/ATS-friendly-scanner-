@@ -44,25 +44,46 @@ function UploadBox({ setSelectedFile, setError }) {
     const allowedTypes = [
         "application/pdf",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/msword",
     ];
 
-    if (!allowedTypes.includes(file.type)) {
+    const fileName = file.name || "";
+    const extension = fileName.split(".").pop()?.toLowerCase();
+    const allowedExtensions = ["pdf", "doc", "docx"];
+    const hasAllowedExtension = allowedExtensions.includes(extension);
+    const hasAllowedMimeType = allowedTypes.includes(file.type);
+
+    if (!hasAllowedMimeType && !hasAllowedExtension) {
+        setSelectedFile(null);
         setError("Only PDF and DOCX files are allowed.");
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
         return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
+        setSelectedFile(null);
         setError("File size must be less than 5MB.");
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
         return;
     }
 
     setError("");
     setSelectedFile(file);
+    if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+    }
     };
 
 
     const handleFileChange = (event) => {
     validateAndSelectFile(event.target.files[0]);
+    if (event.target) {
+        event.target.value = "";
+    }
     };
 
     return (
